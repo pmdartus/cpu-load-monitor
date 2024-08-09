@@ -1,0 +1,27 @@
+.alert-list ol {
+  list-style-type: none;
+  padding: 0;
+}
+
+.alert-list__empty {
+  opacity: 0.5;
+}
+
+.alert-list-item {
+  margin-bottom: 0.5rem;
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.alert-list-item__error {
+  background-color: #f7e1e3;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+.alert-list-item__ok {
+  background-color: #d4edda;
+  border-color: #e6f4ea;
+  color: #155724;
+}
