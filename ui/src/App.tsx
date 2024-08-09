@@ -18,6 +18,7 @@ const fetchCpuData =
     ? mocks.fetchCpuData
     : apis.fetchCpuData;
 
+
 export function App() {
   const { data, alerts } = useMonitoringStore();
 

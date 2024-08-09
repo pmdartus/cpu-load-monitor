@@ -1,8 +1,8 @@
 import { describe, beforeEach, vi, it, expect, afterEach } from "vitest";
-import Fastify, { type FastifyInstance } from "fastify";
+import Fastify, { FastifyInstance } from "fastify";
 
 import { apiRoutes, DEFAULT_SINCE_OFFSET } from "./api.js";
-import type { MonitoringService } from "../services/monitoring.js";
+import { MonitoringService } from "../services/monitoring.js";
 
 let app: FastifyInstance;
 let mockMonitoring: MonitoringService;
@@ -22,12 +22,10 @@ beforeEach(async () => {
 });
 
 beforeEach(() => {
-  // Use fake timers to speed up the test and make it predictable.
   vi.useFakeTimers();
 });
 
 afterEach(() => {
-  // Restore the real timers once the test is done.
   vi.useRealTimers();
 });
 
@@ -61,7 +59,7 @@ describe("GET /metrics/cpu-load", () => {
   });
 
   it("invokes the monitoring service with the default since value", async () => {
-    const expectedSince = Date.now() - DEFAULT_SINCE_OFFSET; // 10 minutes ago
+    const expectedSince = Date.now() - DEFAULT_SINCE_OFFSET;
 
     await app.inject({
       method: "GET",

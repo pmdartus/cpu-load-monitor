@@ -1,4 +1,4 @@
-import { describe, it, vi, beforeEach, afterEach, expect } from "vitest";
+import { describe, it, vi, beforeAll, afterAll, expect, afterEach } from "vitest";
 
 import { CpuMonitoringService } from "./monitoring.js";
 
@@ -14,17 +14,19 @@ vi.mock("node:os", () => {
 describe("CpuMonitoringService", () => {
   let sampler: CpuMonitoringService;
 
-  beforeEach(() => {
-    // Use fake timers to speed up the test and make it predictable.
-    vi.useFakeTimers();
-  });
-
   afterEach(() => {
     // Stop the sampler to avoid leaking timers.
     sampler?.stop();
-    // Restore the real timers once the test is done.
+  });
+
+  beforeAll(() => {
+    vi.useFakeTimers();
+  });
+
+  afterAll(() => {
     vi.useRealTimers();
   });
+
 
   it("should collect cpu load when started", () => {
     sampler = new CpuMonitoringService();

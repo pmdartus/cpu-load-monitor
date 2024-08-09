@@ -9,6 +9,7 @@ import {
   LineElement,
   PointElement,
   TimeSeriesScale,
+  Tooltip,
 } from "chart.js";
 import "chartjs-adapter-date-fns";
 import annotationPlugin, { AnnotationOptions } from "chartjs-plugin-annotation";
@@ -26,17 +27,15 @@ export interface TimeSeriesChartProps {
 // Register the necessary components for the Line chart. Using this approach allows us to
 // reduce the bundle size by ~60Kb.
 Chart.register([
-  // Core Line chart components
   LineController,
   LineElement,
   PointElement,
   LinearScale,
   TimeSeriesScale,
-
-  // Misc
+  
   Colors,
+  Tooltip,
 
-  // Plugins
   annotationPlugin,
 ]);
 
@@ -123,7 +122,7 @@ export function TimeSeriesChart({
     chart.data.labels = timestamps;
     chart.data.datasets[0].data = values;
 
-    // Add threshold and alert annotations
+    // Horizontal line annotation for the threshold
     const thresholdAnnotation: AnnotationOptions = {
       type: "line",
       scaleID: "y",
@@ -131,6 +130,8 @@ export function TimeSeriesChart({
       borderColor: THRESHOLD_LINE_COLOR,
     };
 
+    // Point annotations for the alerts. We only show alerts that are within the current
+    // visible range of the chart.
     const alertAnnotations = alerts
       .filter(
         (alert) =>

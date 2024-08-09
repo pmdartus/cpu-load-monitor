@@ -88,8 +88,6 @@ export class CpuMonitoringService implements MonitoringService {
 
   getData(options: GetDataOptions = {}): DataPoint[] {
     const { since = 0 } = options;
-
-    // Return a copy of the buffer to guard against mutations.
     return this.#buffer.filter((entry) => entry.ts >= since);
   }
 }

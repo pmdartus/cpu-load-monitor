@@ -1,6 +1,6 @@
 import { FastifyPluginAsync } from "fastify";
 
-import type { DataPoint, MonitoringService } from "../services/monitoring.js";
+import { DataPoint, MonitoringService } from "../services/monitoring.js";
 
 interface CpuLoadQuery {
   since?: number;

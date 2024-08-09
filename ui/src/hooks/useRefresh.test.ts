@@ -1,17 +1,17 @@
-import { vi, beforeEach, afterEach, describe, it, expect } from "vitest";
+import { vi, describe, it, expect, beforeAll, afterAll } from "vitest";
 import { renderHook } from "@testing-library/react";
 
 import { useRefresh } from "./useRefresh";
 
-beforeEach(() => {
-  vi.useFakeTimers();
-});
-
-afterEach(() => {
-  vi.useRealTimers();
-});
-
 describe("useRefresh", () => {
+  beforeAll(() => {
+    vi.useFakeTimers();
+  });
+
+  afterAll(() => {
+    vi.useRealTimers();
+  });
+
   it("should call the callback immediately", () => {
     const callback = vi.fn();
     const interval = 1000;

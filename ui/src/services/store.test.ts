@@ -45,7 +45,7 @@ describe("ingestData", () => {
     ]);
   });
 
-  it("should only produce one high load alert if the CPU load is high for more than 2 minutes", () => {
+  it("should a single high load alert if the CPU load is high for more than 2 minutes", () => {
     for (let i = 0; i < 10; i++) {
       store
         .getState()

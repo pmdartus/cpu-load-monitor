@@ -4,6 +4,7 @@ const MOCK_NETWORK_LATENCY_MS = 500;
 
 const MOCK_CPU_INTERVAL_MS = 10_000; // 10 seconds
 const MOCK_CYCLE_DURATION_MS = 5 * 60 * 1000; // 5 minutes
+const DEFAULT_SINCE_OFFSET = 10 * 60 * 1000; // 10 minutes
 
 const LOW_CPU_VALUE = 0.3;
 const HIGH_CPU_VALUE = 1.4;
@@ -15,13 +16,11 @@ const HIGH_CPU_VALUE = 1.4;
 export async function fetchCpuData(
   options?: FetchOptions
 ): Promise<CpuLoadResponse> {
-  const since = options?.since ?? Date.now() - 60 * 10_000;
-  const to = Date.now();
-
-  options?.signal?.throwIfAborted();
+  const now = Date.now();
+  const since = options?.since ?? now - DEFAULT_SINCE_OFFSET;
 
   const data: DataPoint[] = [];
-  for (let current = since; current <= to; current += MOCK_CPU_INTERVAL_MS) {
+  for (let current = since; current <= now; current += MOCK_CPU_INTERVAL_MS) {
     const normalized =
       (current % MOCK_CYCLE_DURATION_MS) / MOCK_CYCLE_DURATION_MS;
 
